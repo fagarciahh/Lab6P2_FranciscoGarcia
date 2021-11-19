@@ -1,6 +1,13 @@
 
+import java.awt.Color;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JColorChooser;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -20,7 +27,6 @@ public class Principal extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         r_nombre = new javax.swing.JTextField();
         r_apellido = new javax.swing.JTextField();
-        r_fecha = new javax.swing.JFormattedTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -28,6 +34,7 @@ public class Principal extends javax.swing.JFrame {
         btr_registrarme = new javax.swing.JButton();
         r_password = new javax.swing.JPasswordField();
         btr_color = new javax.swing.JButton();
+        r_fecha = new javax.swing.JTextField();
         jd_final = new javax.swing.JDialog();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -78,8 +85,6 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel7.setText("Fecha (dd/mm/yyyy)");
 
-        r_fecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/yyyy"))));
-
         jLabel8.setText("Usuario");
 
         jLabel9.setText("Contraseña");
@@ -87,6 +92,11 @@ public class Principal extends javax.swing.JFrame {
         jLabel10.setText("Color Favorito");
 
         btr_registrarme.setText("Registrarme");
+        btr_registrarme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btr_registrarmeActionPerformed(evt);
+            }
+        });
 
         btr_color.setText("Elegir Color");
         btr_color.addActionListener(new java.awt.event.ActionListener() {
@@ -106,8 +116,8 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(r_apellido)
-                    .addComponent(r_fecha)
-                    .addComponent(r_nombre))
+                    .addComponent(r_nombre)
+                    .addComponent(r_fecha))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jd_registroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel8)
@@ -154,8 +164,8 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addGroup(jd_registroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(r_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btr_color))
+                    .addComponent(btr_color)
+                    .addComponent(r_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btr_registrarme, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                 .addGap(24, 24, 24))
@@ -472,9 +482,34 @@ public class Principal extends javax.swing.JFrame {
 
     private void btr_colorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btr_colorActionPerformed
         
-        
+        color = JColorChooser.showDialog(jd_registro, "Seleccione color", Color.yellow);
         
     }//GEN-LAST:event_btr_colorActionPerformed
+
+    private void btr_registrarmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btr_registrarmeActionPerformed
+        
+        if(usuario() == false){
+            String nombre = r_nombre.getText();
+            String usuario = r_usuario.getText();
+            String apellido = r_apellido.getText();
+            String contraseña = r_password.getText();
+            String f = r_fecha.getText();
+            
+            SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+            try {
+                Date fecha = df.parse(f);
+                lista.add(new Usuario(nombre,apellido,usuario,contraseña,fecha,color));
+                openFinal();
+                jd_registro.setVisible(false);
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(jd_registro,"Fecha invalida");
+            }
+        } else {
+            JOptionPane.showMessageDialog(jd_registro,"Ya existe ese usuario");
+        }
+        
+        
+    }//GEN-LAST:event_btr_registrarmeActionPerformed
     
     private boolean usuario(){
         for (Usuario u : lista) {
@@ -576,11 +611,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPasswordField jt_contraseña;
     private javax.swing.JTextField jt_usuario;
     private javax.swing.JTextField r_apellido;
-    private javax.swing.JFormattedTextField r_fecha;
+    private javax.swing.JTextField r_fecha;
     private javax.swing.JTextField r_nombre;
     private javax.swing.JPasswordField r_password;
     private javax.swing.JTextField r_usuario;
     // End of variables declaration//GEN-END:variables
 
 ArrayList <Usuario> lista = new ArrayList();
+Color color = Color.YELLOW;
 }

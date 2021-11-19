@@ -14,8 +14,8 @@
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
                       <Component id="r_apellido" alignment="0" max="32767" attributes="0"/>
-                      <Component id="r_fecha" max="32767" attributes="0"/>
                       <Component id="r_nombre" alignment="0" max="32767" attributes="0"/>
+                      <Component id="r_fecha" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="40" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -75,8 +75,8 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="r_fecha" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btr_color" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="r_fecha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btr_registrarme" pref="32" max="32767" attributes="0"/>
@@ -113,13 +113,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="r_apellido">
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="r_fecha">
-          <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format format="d/M/yyyy" subtype="-1" type="1"/>
-            </Property>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
             <Property name="text" type="java.lang.String" value="Usuario"/>
@@ -141,6 +134,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Registrarme"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btr_registrarmeActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="r_password">
         </Component>
@@ -151,6 +147,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btr_colorActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="r_fecha">
         </Component>
       </SubComponents>
     </Container>
