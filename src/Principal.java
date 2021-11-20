@@ -42,6 +42,7 @@ public class Principal extends javax.swing.JFrame {
         
         PokeGrupo grupo = new PokeGrupo("Los CT", Pino);
         grupo.getMiembros().add(Ashley);
+        group.add(grupo);
     }
 
     
@@ -71,7 +72,7 @@ public class Principal extends javax.swing.JFrame {
         jList1 = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cb_grupo = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -228,7 +229,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cb_grupo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -251,7 +252,7 @@ public class Principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cb_grupo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
@@ -503,6 +504,7 @@ public class Principal extends javax.swing.JFrame {
                 if(u.getUsuario().equals(jt_usuario.getText()) && 
                         u.getContraseña().equals(jt_contraseña.getText())){
                     jl_usuario.setText("Usuario: " + u.getNombre() + u.getApellido());
+                    listCombo();
                     openFinal();
                     
                 }
@@ -593,9 +595,10 @@ public class Principal extends javax.swing.JFrame {
     private void listCombo(){
         
         DefaultComboBoxModel model = new DefaultComboBoxModel();
-        for (PokeGrupo u : gruop) {
-            
+        for (PokeGrupo u : group) {
+            model.addElement(u);
         }
+        cb_grupo.setModel(model);
     }
     
     private boolean usuario(){
@@ -665,12 +668,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.ButtonGroup bt_velocidad;
     private javax.swing.JButton btr_color;
     private javax.swing.JButton btr_registrarme;
+    private javax.swing.JComboBox<String> cb_grupo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -719,7 +722,7 @@ public class Principal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 ArrayList<Usuario> lista = new ArrayList();
-ArrayList<PokeGrupo> gruop = new ArrayList();
+ArrayList<PokeGrupo> group = new ArrayList();
 Color color = Color.YELLOW;
 Usuario temporal;
 
