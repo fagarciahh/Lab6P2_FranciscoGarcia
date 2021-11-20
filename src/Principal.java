@@ -566,6 +566,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         
+        listCombo();
         
         temporal = buscar();
         
