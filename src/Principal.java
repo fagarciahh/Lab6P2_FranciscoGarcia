@@ -13,6 +13,26 @@ public class Principal extends javax.swing.JFrame {
 
     public Principal() {
         initComponents();
+        
+        Usuario Pino = new Usuario("Andre", "Pino", "Pines", "jpino", new Date(), Color.BLACK);
+        Usuario Ashley = new Usuario("Ashley", "Salinas", "Bubblebob", "j1234", new Date(), Color.RED);
+
+        Pokemon bob = new Veneno("crobat", "alta", 2000, 5000);
+        Pokemon alas = new Psiquico("Mew", "alta", 3000, 25000);
+
+        Pokemon persa = new Fantasma("Gengar", "media", 2000, 7500);
+        Pokemon aloha = new Electrico("Raichu", "media", 1500, 8000);
+
+        /*Pino.getPk1().setPk1(bob);
+        Pino.getPk1().setPk2(alas);
+        Ashley.getPk1().setPk1(persa);
+        Ashley.getPk1().setPk2(aloha);*/
+        
+        lista.add(Pino);
+        lista.add(Ashley);
+        
+        PokeGrupo grupo = new PokeGrupo("Los CT", Pino);
+        grupo.getMiembros().add(Ashley);
     }
 
     
@@ -67,7 +87,9 @@ public class Principal extends javax.swing.JFrame {
         jRadioButton5 = new javax.swing.JRadioButton();
         jRadioButton6 = new javax.swing.JRadioButton();
         jRadioButton7 = new javax.swing.JRadioButton();
-        jLabel11 = new javax.swing.JLabel();
+        jl_usuario = new javax.swing.JLabel();
+        bt_velocidad = new javax.swing.ButtonGroup();
+        bt_tipo = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -182,8 +204,6 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel12.setText("Unirse a un PokeGrtpo:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jButton2.setText("Unirme");
 
         jLabel13.setText("Crear PokeGrupo");
@@ -251,20 +271,27 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel18.setText("Tipo");
 
+        bt_velocidad.add(jRadioButton1);
         jRadioButton1.setText("baja");
 
+        bt_velocidad.add(jRadioButton2);
         jRadioButton2.setText("media");
 
+        bt_velocidad.add(jRadioButton3);
         jRadioButton3.setText("alta");
 
         jButton5.setText("jButton5");
 
+        bt_tipo.add(jRadioButton4);
         jRadioButton4.setText("Electrico");
 
+        bt_tipo.add(jRadioButton5);
         jRadioButton5.setText("Psiquico");
 
+        bt_tipo.add(jRadioButton6);
         jRadioButton6.setText("Veneno");
 
+        bt_tipo.add(jRadioButton7);
         jRadioButton7.setText("Fantasma");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -355,8 +382,8 @@ public class Principal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("PokeGrupo", jPanel1);
 
-        jLabel11.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
-        jLabel11.setText("Usuario:");
+        jl_usuario.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        jl_usuario.setText("Usuario:");
 
         javax.swing.GroupLayout jd_finalLayout = new javax.swing.GroupLayout(jd_final.getContentPane());
         jd_final.getContentPane().setLayout(jd_finalLayout);
@@ -366,14 +393,14 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jd_finalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         jd_finalLayout.setVerticalGroup(
             jd_finalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jd_finalLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -461,6 +488,7 @@ public class Principal extends javax.swing.JFrame {
                 if(u.getUsuario().equals(jt_usuario.getText()) && 
                         u.getContraseña().equals(jt_contraseña.getText())){
                     openFinal();
+                    jl_usuario.setText("Usuario: " + u.getNombre() + u.getApellido());
                 }
             }
         }else{
@@ -499,13 +527,20 @@ public class Principal extends javax.swing.JFrame {
             try {
                 Date fecha = df.parse(f);
                 lista.add(new Usuario(nombre,apellido,usuario,contraseña,fecha,color));
-                openFinal();
                 jd_registro.setVisible(false);
+                this.setVisible(false);
+                openFinal();
+                jl_usuario.setText("Usuario: " + nombre + apellido);
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(jd_registro,"Fecha invalida");
             }
         } else {
             JOptionPane.showMessageDialog(jd_registro,"Ya existe ese usuario");
+            r_nombre.setText("");
+            r_usuario.setText("");
+            r_apellido.setText("");
+            r_password.setText("");
+            r_fecha.setText("");
         }
         
         
@@ -513,7 +548,7 @@ public class Principal extends javax.swing.JFrame {
     
     private boolean usuario(){
         for (Usuario u : lista) {
-            if(u.getUsuario().equals(jt_usuario.getText())){
+            if(u.getUsuario().equals(jt_usuario.getText()) || u.getUsuario().equals(r_usuario.getText())){
                 return true;
             }
         }
@@ -562,6 +597,8 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_ingresar;
     private javax.swing.JButton bt_registrarme;
+    private javax.swing.ButtonGroup bt_tipo;
+    private javax.swing.ButtonGroup bt_velocidad;
     private javax.swing.JButton btr_color;
     private javax.swing.JButton btr_registrarme;
     private javax.swing.JButton jButton1;
@@ -572,7 +609,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -608,6 +644,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTree jTree1;
     private javax.swing.JDialog jd_final;
     private javax.swing.JDialog jd_registro;
+    private javax.swing.JLabel jl_usuario;
     private javax.swing.JPasswordField jt_contraseña;
     private javax.swing.JTextField jt_usuario;
     private javax.swing.JTextField r_apellido;
@@ -617,6 +654,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField r_usuario;
     // End of variables declaration//GEN-END:variables
 
-ArrayList <Usuario> lista = new ArrayList();
+ArrayList<Usuario> lista = new ArrayList();
 Color color = Color.YELLOW;
+
+
 }
