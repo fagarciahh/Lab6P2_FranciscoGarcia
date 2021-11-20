@@ -6,8 +6,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JColorChooser;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -22,11 +25,17 @@ public class Principal extends javax.swing.JFrame {
 
         Pokemon persa = new Fantasma("Gengar", "media", 2000, 7500);
         Pokemon aloha = new Electrico("Raichu", "media", 1500, 8000);
-
-        /*Pino.getPk1().setPk1(bob);
-        Pino.getPk1().setPk2(alas);
-        Ashley.getPk1().setPk1(persa);
-        Ashley.getPk1().setPk2(aloha);*/
+        
+        Pokedex p = new Pokedex();
+        p.setPk1(bob);
+        p.setPk2(alas);
+        
+        Pokedex l = new Pokedex();
+        l.setPk1(persa);
+        l.setPk2(aloha);
+        
+        Pino.setPk1(p);
+        Ashley.setPk1(l);
         
         lista.add(Pino);
         lista.add(Ashley);
@@ -69,7 +78,7 @@ public class Principal extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        tree_usuario = new javax.swing.JTree();
         jButton4 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -193,11 +202,12 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
         });
+
         jScrollPane1.setViewportView(jList1);
 
         jButton1.setText("Salirme del PokeGrupo");
@@ -256,7 +266,15 @@ public class Principal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Pokemons", jPanel2);
 
-        jScrollPane2.setViewportView(jTree1);
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Pokedex 1");
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Pokedex 2");
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Pokedex 3");
+        treeNode1.add(treeNode2);
+        tree_usuario.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane2.setViewportView(tree_usuario);
 
         jButton4.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jButton4.setText("<");
@@ -301,38 +319,39 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel14)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2)
                     .addComponent(jRadioButton3)
-                    .addComponent(jButton5))
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField2))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTextField3)
+                                .addGap(30, 30, 30)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18)
                             .addComponent(jRadioButton4)
                             .addComponent(jRadioButton5)
                             .addComponent(jRadioButton6)
                             .addComponent(jRadioButton7))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16))
-                        .addGap(17, 17, 17))))
+                        .addGap(141, 141, 141))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,15 +375,11 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
                             .addComponent(jLabel18))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jButton4))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jRadioButton1)
-                                    .addComponent(jRadioButton4))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jRadioButton4)
+                            .addComponent(jButton4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jRadioButton2)
@@ -391,9 +406,9 @@ public class Principal extends javax.swing.JFrame {
             jd_finalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jd_finalLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(jd_finalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jd_finalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jl_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         jd_finalLayout.setVerticalGroup(
@@ -487,8 +502,9 @@ public class Principal extends javax.swing.JFrame {
             for (Usuario u : lista) {
                 if(u.getUsuario().equals(jt_usuario.getText()) && 
                         u.getContraseña().equals(jt_contraseña.getText())){
-                    openFinal();
                     jl_usuario.setText("Usuario: " + u.getNombre() + u.getApellido());
+                    openFinal();
+                    
                 }
             }
         }else{
@@ -545,15 +561,63 @@ public class Principal extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btr_registrarmeActionPerformed
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        
+        
+        temporal = buscar();
+        
+        DefaultTreeModel m = (DefaultTreeModel) tree_usuario.getModel();
+        /*DefaultMutableTreeNode raiz = 
+                (DefaultMutableTreeNode) m.getRoot();
+        DefaultMutableTreeNode nodo_pokedex1;
+        nodo_pokedex1 = 
+                new DefaultMutableTreeNode(temporal.getPk1());
+        
+        DefaultMutableTreeNode nodo_pokedex2;
+        nodo_pokedex2 = 
+                new DefaultMutableTreeNode(temporal.getPk2());
+        
+        DefaultMutableTreeNode nodo_pokedex3;
+        nodo_pokedex3 = 
+                new DefaultMutableTreeNode(temporal.getPk3());
+        
+        raiz.add(nodo_pokedex3);
+        raiz.add(nodo_pokedex2);
+        raiz.add(nodo_pokedex1);
+        m.reload();*/
+       
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+    
+    
+    private void listCombo(){
+        
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (PokeGrupo u : gruop) {
+            
+        }
+    }
     
     private boolean usuario(){
+        int i = 0; 
         for (Usuario u : lista) {
             if(u.getUsuario().equals(jt_usuario.getText()) || u.getUsuario().equals(r_usuario.getText())){
                 return true;
             }
+            i++;
         }
         return false;
     }
+    
+    private Usuario buscar(){
+        for (Usuario u : lista) {
+            if(u.getUsuario().equals(jt_usuario.getText()) || u.getUsuario().equals(r_usuario.getText())){
+                return u;
+            }
+        }
+        return null;
+    }
+    
     
     private void openFinal(){
         jd_final.pack();
@@ -641,7 +705,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTree jTree1;
     private javax.swing.JDialog jd_final;
     private javax.swing.JDialog jd_registro;
     private javax.swing.JLabel jl_usuario;
@@ -652,10 +715,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField r_nombre;
     private javax.swing.JPasswordField r_password;
     private javax.swing.JTextField r_usuario;
+    private javax.swing.JTree tree_usuario;
     // End of variables declaration//GEN-END:variables
 
 ArrayList<Usuario> lista = new ArrayList();
+ArrayList<PokeGrupo> gruop = new ArrayList();
 Color color = Color.YELLOW;
-
+Usuario temporal;
 
 }
